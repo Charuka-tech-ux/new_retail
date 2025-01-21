@@ -1,0 +1,463 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+table, th, td {
+    border: 2px solid #d4dae0; /* Make table borders blue and thicker */
+}
+
+th, td {
+    padding: 12px;
+    text-align: center;
+}
+
+th {
+    background-color: #c9d2da;
+    color: #333;
+}
+
+td {
+    background-color: #bdcfdb; /* Add a light background color for readability */
+}
+
+input {
+    width: 90%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin: 2px 0;
+}
+
+button {
+    padding: 10px 20px;
+    margin: 10px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+/* Add this CSS to your stylesheet */
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 15px 0;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    margin: 20px 0;
+}
+
+.action-btn {
+    padding: 8px 16px;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background-color: white;
+    color: #495057;
+    min-width: 100px;
+    text-align: center;
+}
+
+.action-btn:hover {
+    background-color: #f8f9fa;
+    border-color: #adb5bd;
+}
+
+.action-btn.calculate {
+    background-color: #0d6efd;
+    color: white;
+    border-color: #0d6efd;
+}
+
+.action-btn.calculate:hover {
+    background-color: #0b5ed7;
+}
+
+.action-btn.save {
+    background-color: #046233;
+    color: white;
+    border-color: #198754;
+}
+
+.action-btn.save:hover {
+    background-color: #157347;
+}
+
+.action-btn.reset, .action-btn.reset-all {
+    background-color: #dc3545;
+    color: white;
+    border-color: #dc3545;
+}
+
+.action-btn.reset:hover, .action-btn.reset-all:hover {
+    background-color: #a53030;
+}
+
+.action-btn.export, .action-btn.export-all {
+    background-color: #6c757d;
+    color: white;
+    border-color: #6c757d;
+}
+
+.action-btn.export:hover, .action-btn.export-all:hover {
+    background-color: #5c636a;
+}
+
+/* Disable button styles */
+.action-btn:disabled {
+    background-color: #e9ecef;
+    border-color: #dee2e6;
+    color: #6c757d;
+    cursor: not-allowed;
+}
+/* Add this CSS to your stylesheet */
+.agm-column {
+    padding: 8px !important;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+}
+
+.agm-name {
+    display: flex;
+    align-items: center;
+    padding: 4px 0;
+    margin: 2px 0;
+    height: 28px; /* Match the height of input fields */
+}
+
+.name-label {
+    font-weight: 500;
+    color: #495057;
+    width: 45px;
+    font-size: 14px;
+}
+
+.name {
+    color: #212529;
+    font-size: 14px;
+    padding-left: 8px;
+}
+
+/* Update table cell styling */
+td {
+    vertical-align: top;
+    padding: 8px;
+}
+
+/* Style for input fields to match the height */
+input[type="text"],
+input[type="number"] {
+    height: 28px;
+    padding: 4px 8px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+/* Add borders to table */
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    border: 1px solid #dee2e6;
+}
+
+th {
+    background-color: #e9ecef;
+    padding: 10px 8px;
+    font-weight: 500;
+    text-align: left;
+    color: #495057;
+}
+/* Updated CSS for consistent name styling */
+.name-column {
+    padding: 12px 15px !important;
+}
+
+.name-row {
+    display: flex;
+    align-items: center;
+    margin: 2px 0;
+    gap: 8px;
+}
+
+.role-label {
+    min-width: 45px;
+    font-weight: 500;
+    color: #2c3e50;
+    font-size: 14px;
+}
+
+.name-input {
+    flex: 1;
+    height: 36px;
+    padding: 8px 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    font-size: 14px;
+    background-color: #f8f9fa;
+    color: #2d3748;
+    text-align: left;
+}
+
+/* Update saved data table styling */
+#savedData td {
+    padding: 12px 15px;
+    vertical-align: middle;
+    border-bottom: 1px solid #e9ecef;
+}
+
+#savedData .name-display {
+    display: flex;
+    align-items: center;
+    margin: 4px 0;
+    gap: 8px;
+}
+
+#savedData .role-label {
+    min-width: 45px;
+    font-weight: 500;
+}
+
+/* Update the updateSavedDataTable function in JavaScript */
+/* Global Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+    min-height: 100vh;
+}
+
+h1 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 30px;
+    font-size: 2.5em;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+h2 {
+    color: #34495e;
+    margin: 25px 0;
+    font-size: 1.8em;
+}
+
+/* Search Container */
+.search-container {
+    margin: 20px 0;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.search-container input {
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 300px;
+    font-size: 14px;
+}
+
+.search-container button {
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-container button:hover {
+    background-color: #2980b9;
+}
+
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 20px 0;
+}
+
+th {
+    background-color: #34495e;
+    color: white;
+    padding: 15px;
+    text-align: left;
+    font-weight: 500;
+}
+
+td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #eee;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+tr:hover {
+    background-color: #f8f9fa;
+}
+
+/* Input Styles */
+input[type="text"],
+input[type="number"] {
+    width: 100%;
+    padding: 8px 12px;
+    margin: 4px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus {
+    border-color: #3498db;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+input[readonly] {
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+}
+
+/* Button Group Styles */
+.button-group {
+    margin: 25px 0;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.action-btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+}
+
+.calculate {
+    background-color: #2ecc71;
+    color: white;
+}
+
+.calculate:hover {
+    background-color: #27ae60;
+}
+
+.save {
+    background-color: #3498db;
+    color: white;
+}
+
+.save:hover {
+    background-color: #2980b9;
+}
+
+.reset {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.reset:hover {
+    background-color: #c0392b;
+}
+
+.reset-all {
+    background-color: #c0392b;
+    color: white;
+}
+
+.reset-all:hover {
+    background-color: #a93226;
+}
+
+.export {
+    background-color: #9b59b6;
+    color: white;
+}
+
+.export:hover {
+    background-color: #8e44ad;
+}
+
+.export-all {
+    background-color: #8e44ad;
+    color: white;
+}
+
+.export-all:hover {
+    background-color: #7d3c98;
+}
+
+/* Name Row Styles */
+.name-row {
+    margin: 4px 0;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+    
+    .button-group {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .action-btn {
+        width: 100%;
+    }
+}
+
+/* Total Display Styles */
+#totalAsAtTodayInHand {
+    display: inline-block;
+    padding: 8px 15px;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-top: 10px;
+}

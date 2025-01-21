@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<!-- saved from url=(0132)file:///C:/Users/charukad/OneDrive%20-%20Singhagiri%20PVT%20LTD/Desktop/Allocation%20System/Sales%20Allocation%20System%20final.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="style.css">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title> sales Allocation System</title>
+    <script src="sales%20Allocation%20System%205555_files/xlsx.full.min.js.download"></script>
+    <style>
+    
+        
+    </style>
+</head>
+<body>
+    
+    <h1> Stock Allocation System</h1>
+   
+        <div class="search-container">
+        <input type="text" id="searchItemCode" placeholder="Search by Item Code">
+        <button onclick="searchItem()">Search</button>
+    </div>
+
+
+    <form id="salesForm">
+        <p></p><table>
+            
+            <tbody><tr>
+                <th>Item Code</th>
+                <th>AGM / DGM</th>
+                <th>1 April -31 Oct Sales</th>
+                <th>Sale Percentage</th>
+                <th>As at Today In Hand</th>
+                <th>New Allocation</th>
+                <th>To Be In Hand</th>
+                <th>Balance Allocation</th>
+            </tr>
+            <tr>
+                <td><input type="text" id="itemCode" placeholder="Item Code" required=""></td>
+
+                <td>
+                    <div class="name-row">
+                        <input type="text" value="Mr. Lalin Anthony" readonly="readonly" class="">
+                    </div>
+                    <div class="name-row">
+                        <input type="text" value="Mr. Shehan Fernando" readonly="readonly" class="">
+                    </div>
+                    <div class="name-row">
+                        <input type="text" value="Mr. Amila Perera" readonly="readonly" class="">
+                    </div>
+    
+</td>
+ 
+                
+                <td>
+                    <input type="number" id="saleLaleen" placeholder="Lalin Anthony" required=""><br>
+                    <input type="number" id="saleShehan" placeholder="Shehan Franando" required=""><br>
+                    <input type="number" id="saleAmila" placeholder="Amila Perera" required="">
+                </td>
+                <td>
+                    <input type="number" id="salePercentageLaleen" placeholder="Lalin Anthony %" readonly="readonly"><br>
+                    <input type="number" id="salePercentageShehan" placeholder="Shehan Franando %" readonly="readonly"><br>
+                    <input type="number" id="salePercentageAmila" placeholder="Amila Perera %" readonly="readonly">
+                </td>
+                <td>
+                    <input type="number" id="asAtTodayInHandLaleen" placeholder="Lalin Anthony" required=""><br>
+                    <input type="number" id="asAtTodayInHandShehan" placeholder="Shehan Franando" required=""><br>
+                    <input type="number" id="asAtTodayInHandAmila" placeholder="Amila Perera" required="">
+                    <br><br>
+                    <strong>Total As at Today In Hand: </strong><span id="totalAsAtTodayInHand">0</span>
+                </td>
+                <td>
+                    <p><input type="number" id="newAllocation" placeholder="New Allocation" required="">
+                    </p></td>
+                <td>
+                    <input type="number" id="toBeInHandLaleen" placeholder="Lalin Anthony" class="manual-input"><br>
+                    <input type="number" id="toBeInHandShehan" placeholder="Shehan Franando" class="manual-input"><br>
+                    <input type="number" id="toBeInHandAmila" placeholder="Amila Perera" class="manual-input">
+                </td>
+                <td>
+                    <input type="number" id="balanceLaleen" placeholder="Lalin Anthony" class="manual-input"><br>
+                    <input type="number" id="balanceShehan" placeholder="Shehan Franando" class="manual-input"><br>
+                    <input type="number" id="balanceAmila" placeholder="Amila Perera" class="manual-input">
+                </td>
+            </tr>
+        </tbody></table>
+
+        <div class="button-group">
+            <!-- Update the button sections in your HTML to this -->
+<div class="action-buttons">
+    <button type="button" onclick="calculate()" class="action-btn calculate">Auto Calculate</button>
+    <button type="button" onclick="save()" class="action-btn save">Save</button>
+    <button type="button" onclick="resetForm()" class="action-btn reset">Reset Form</button>
+    <button type="button" onclick="resetAllData()" class="action-btn reset-all">Reset All Data</button>
+    <button type="button" onclick="exportCurrentToExcel()" class="action-btn export">Export Current</button>
+    <button type="button" onclick="exportAllToExcel()" class="action-btn export-all">Export All</button>
+</div>
+        </div>
+    </form>
+
+    
+        
+    
+
+    <h2>Saved Data</h2>
+    
+    <table id="savedData">
+        <tbody><tr>
+            <th>Item Code</th>
+            <th>Name</th>
+            <th>Sale</th>
+            <th>Sale Percentage</th>
+            <th>As at Today In Hand</th>
+            <th>New Allocation</th>
+            <th>To Be In Hand</th>
+            <th>Balance Allocation</th>
+        </tr>
+    </tbody></table>
+
+    <script>
+        // Previous JavaScript code remains the same until the new export functions
+
+        function exportCurrentToExcel() {
+            const itemCode = document.getElementById("itemCode").value;
+            if (!itemCode) {
+                alert("Please enter an Item Code first");
+                return;
+            }
+
+            const data = [
+                ['Sales Allocation System - Current Entry'],
+                [''],
+                ['Item Code:', itemCode],
+                [''],
+                ['Name', 'Sale', 'Sale Percentage', 'As at Today In Hand', 'New Allocation', 'To Be In Hand', 'Balance Allocation'],
+                ['LALIN ANTHONY', 
+                 document.getElementById("saleLaleen").value,
+                 document.getElementById("salePercentageLaleen").value,
+                 document.getElementById("asAtTodayInHandLaleen").value,
+                 document.getElementById("newAllocation").value,
+                 document.getElementById("toBeInHandLaleen").value,
+                 document.getElementById("balanceLaleen").value
+                ],
+                ['SHEHAN FRANANDO',
+                 document.getElementById("saleShehan").value,
+                 document.getElementById("salePercentageShehan").value,
+                 document.getElementById("asAtTodayInHandShehan").value,
+                 document.getElementById("newAllocation").value,
+                 document.getElementById("toBeInHandShehan").value,
+                 document.getElementById("balanceShehan").value
+                ],
+                ['AMILA PERERA',
+                 document.getElementById("saleAmila").value,
+                 document.getElementById("salePercentageAmila").value,
+                 document.getElementById("asAtTodayInHandAmila").value,
+                 document.getElementById("newAllocation").value,
+                 document.getElementById("toBeInHandAmila").value,
+                 document.getElementById("balanceAmila").value
+                ]
+            ];
+
+            exportToExcel(data, `Sales_Allocation_${itemCode}_${formatDate(new Date())}`);
+        }
+
+        function exportAllToExcel() {
+            if (savedDataArray.length === 0) {
+                alert("No data to export");
+                return;
+            }
+
+            const data = [
+                ['Sales Allocation System - Complete Report'],
+                ['Generated on:', formatDate(new Date())],
+                [''],
+                ['Item Code', 'Name', 'Sale', 'Sale Percentage', 'As at Today In Hand', 'New Allocation', 'To Be In Hand', 'Balance Allocation']
+            ];
+
+            savedDataArray.forEach(item => {
+                item.names.forEach((name, index) => {
+                    data.push([
+                        item.itemCode,
+                        name,
+                        item.sales[index],
+                        item.salePercentages[index],
+                        item.asAtTodayInHand[index],
+                        item.newAllocation,
+                        item.toBeInHand[index],
+                        item.balanceAllocation[index]
+                    ]);
+                });
+            });
+
+            exportToExcel(data, `Sales_Allocation_Complete_${formatDate(new Date())}`);
+        }
+
+        function exportToExcel(data, fileName) {
+            const ws = XLSX.utils.aoa_to_sheet(data);
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, "Sales Allocation");
+
+            // Auto-size columns
+            const colWidths = data.reduce((widths, row) => {
+                row.forEach((cell, i) => {
+                    const cellWidth = (cell?.toString() || '').length;
+                    widths[i] = Math.max(widths[i] || 0, cellWidth);
+                });
+                return widths;
+            }, {});
+
+            ws['!cols'] = Object.keys(colWidths).map(i => ({wch: colWidths[i] + 2}));
+
+            // Save the file
+            XLSX.writeFile(wb, fileName + '.xlsx');
+        }
+
+        function formatDate(date) {
+            return date.toISOString().split('T')[0];
+        }
+
+        // Add the previous JavaScript functions here (calculate, save, updateSavedDataTable, resetForm, resetAllData, searchItem)
+    </script>
+
+
+
+
+
+
+    
+    <script>
+        // Initialize saved data array
+        let savedDataArray = [];
+
+        function calculate() {
+    // Get sale values
+    const saleLaleen = parseFloat(document.getElementById("saleLaleen").value) || 0;
+    const saleShehan = parseFloat(document.getElementById("saleShehan").value) || 0;
+    const saleAmila = parseFloat(document.getElementById("saleAmila").value) || 0;
+
+    // Calculate total sale
+    const totalSale = saleLaleen + saleShehan + saleAmila;
+
+    if (totalSale > 0) {
+        // Calculate and set sale percentages
+        document.getElementById("salePercentageLaleen").value = ((saleLaleen / totalSale) * 100).toFixed(2);
+        document.getElementById("salePercentageShehan").value = ((saleShehan / totalSale) * 100).toFixed(2);
+        document.getElementById("salePercentageAmila").value = ((saleAmila / totalSale) * 100).toFixed(2);
+    }
+
+    // Get current in-hand values
+    const asAtTodayInHandLaleen = parseFloat(document.getElementById("asAtTodayInHandLaleen").value) || 0;
+    const asAtTodayInHandShehan = parseFloat(document.getElementById("asAtTodayInHandShehan").value) || 0;
+    const asAtTodayInHandAmila = parseFloat(document.getElementById("asAtTodayInHandAmila").value) || 0;
+
+    // Calculate and display total in-hand
+    const totalAsAtTodayInHand = asAtTodayInHandLaleen + asAtTodayInHandShehan + asAtTodayInHandAmila;
+    document.getElementById("totalAsAtTodayInHand").textContent = totalAsAtTodayInHand.toFixed(2);
+
+    // Get new allocation
+    const newAllocation = parseFloat(document.getElementById("newAllocation").value) || 0;
+
+    // Calculate suggested values (user can modify these)
+    if (totalSale > 0) {
+        const salePercentageLaleen = parseFloat(document.getElementById("salePercentageLaleen").value) || 0;
+        const salePercentageShehan = parseFloat(document.getElementById("salePercentageShehan").value) || 0;
+        const salePercentageAmila = parseFloat(document.getElementById("salePercentageAmila").value) || 0;
+
+        // Calculate and round To Be In Hand values
+        const toBeInHandLaleen = Math.round((totalAsAtTodayInHand + newAllocation) * (salePercentageLaleen / 100));
+        const toBeInHandShehan = Math.round((totalAsAtTodayInHand + newAllocation) * (salePercentageShehan / 100));
+        const toBeInHandAmila = Math.round((totalAsAtTodayInHand + newAllocation) * (salePercentageAmila / 100));
+
+        // Set suggested values (user can modify)
+        document.getElementById("toBeInHandLaleen").value = toBeInHandLaleen;
+        document.getElementById("toBeInHandShehan").value = toBeInHandShehan;
+        document.getElementById("toBeInHandAmila").value = toBeInHandAmila;
+
+        // Calculate and round Balance Allocation values
+        document.getElementById("balanceLaleen").value = Math.round(toBeInHandLaleen - asAtTodayInHandLaleen);
+        document.getElementById("balanceShehan").value = Math.round(toBeInHandShehan - asAtTodayInHandShehan);
+        document.getElementById("balanceAmila").value = Math.round(toBeInHandAmila - asAtTodayInHandAmila);
+    }
+}
+        
+
+        // Save function
+        function save() {
+            const itemCode = document.getElementById("itemCode").value;
+            if (!itemCode) {
+                alert("Please enter an Item Code");
+                return;
+            }
+
+            const newData = {
+                itemCode: itemCode,
+                names: ["LALIN ANTHONY", "SHEHAN FRANANDO", "AMILA PERERA"],
+                sales: [
+                    document.getElementById("saleLaleen").value,
+                    document.getElementById("saleShehan").value,
+                    document.getElementById("saleAmila").value
+                ],
+                salePercentages: [
+                    document.getElementById("salePercentageLaleen").value,
+                    document.getElementById("salePercentageShehan").value,
+                    document.getElementById("salePercentageAmila").value
+                ],
+                asAtTodayInHand: [
+                    document.getElementById("asAtTodayInHandLaleen").value,
+                    document.getElementById("asAtTodayInHandShehan").value,
+                    document.getElementById("asAtTodayInHandAmila").value
+                ],
+                newAllocation: document.getElementById("newAllocation").value,
+                toBeInHand: [
+                    document.getElementById("toBeInHandLaleen").value,
+                    document.getElementById("toBeInHandShehan").value,
+                    document.getElementById("toBeInHandAmila").value
+                ],
+                balanceAllocation: [
+                    document.getElementById("balanceLaleen").value,
+                    document.getElementById("balanceShehan").value,
+                    document.getElementById("balanceAmila").value
+                ]
+            };
+
+            // Check if item code already exists
+            const existingIndex = savedDataArray.findIndex(item => item.itemCode === itemCode);
+            if (existingIndex !== -1) {
+                if (confirm("Item code already exists. Do you want to update it?")) {
+                    savedDataArray[existingIndex] = newData;
+                } else {
+                    return;
+                }
+            } else {
+                savedDataArray.push(newData);
+            }
+
+            updateSavedDataTable();
+            resetForm();
+            alert("Data saved successfully!");
+        }
+
+        // Update saved data table
+        function updateSavedDataTable() {
+            const table = document.getElementById("savedData");
+            // Clear existing rows except header
+            while (table.rows.length > 1) {
+                table.deleteRow(1);
+            }
+
+            // Add new rows
+            savedDataArray.forEach(data => {
+                const row = table.insertRow(-1);
+                
+                // Add cells
+                const cells = [
+                    data.itemCode,
+                    data.names.join("<br>"),
+                    data.sales.join("<br>"),
+                    data.salePercentages.join("<br>"),
+                    data.asAtTodayInHand.join("<br>"),
+                    data.newAllocation,
+                    data.toBeInHand.join("<br>"),
+                    data.balanceAllocation.join("<br>")
+                ];
+
+                cells.forEach(cellData => {
+                    const cell = row.insertCell(-1);
+                    cell.innerHTML = cellData;
+                });
+            });
+        }
+
+        // Reset form
+        function resetForm() {
+            document.getElementById("salesForm").reset();
+            document.getElementById("totalAsAtTodayInHand").textContent = "0";
+        }
+
+        // Reset all data
+        function resetAllData() {
+            if (confirm("Are you sure you want to reset all saved data? This cannot be undone.")) {
+                savedDataArray = [];
+                updateSavedDataTable();
+                resetForm();
+                alert("All data has been reset!");
+            }
+        }
+
+        // Search function
+        function searchItem() {
+            const searchCode = document.getElementById("searchItemCode").value.trim().toLowerCase();
+            const foundData = savedDataArray.find(data => 
+                data.itemCode.toLowerCase() === searchCode
+            );
+
+            if (foundData) {
+                document.getElementById("itemCode").value = foundData.itemCode;
+                document.getElementById("saleLaleen").value = foundData.sales[0];
+                document.getElementById("saleShehan").value = foundData.sales[1];
+                document.getElementById("saleAmila").value = foundData.sales[2];
+                document.getElementById("salePercentageLaleen").value = foundData.salePercentages[0];
+                document.getElementById("salePercentageShehan").value = foundData.salePercentages[1];
+                document.getElementById("salePercentageAmila").value = foundData.salePercentages[2];
+                document.getElementById("asAtTodayInHandLaleen").value = foundData.asAtTodayInHand[0];
+                document.getElementById("asAtTodayInHandShehan").value = foundData.asAtTodayInHand[1];
+                document.getElementById("asAtTodayInHandAmila").value = foundData.asAtTodayInHand[2];
+                document.getElementById("newAllocation").value = foundData.newAllocation;
+                document.getElementById("toBeInHandLaleen").value = foundData.toBeInHand[0];
+                document.getElementById("toBeInHandShehan").value = foundData.toBeInHand[1];
+                document.getElementById("toBeInHandAmila").value = foundData.toBeInHand[2];
+                document.getElementById("balanceLaleen").value = foundData.balanceAllocation[0];
+                document.getElementById("balanceShehan").value = foundData.balanceAllocation[1];
+                document.getElementById("balanceAmila").value = foundData.balanceAllocation[2];
+            } else {
+                alert("No data found for the given Item Code");
+            }
+        }
+    </script>
+
+
+
+
+
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excel Data Filter</title>
+    <script src="sales%20Allocation%20System%205555_files/xlsx.full.min(1).js.download"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid rgb(225, 225, 233);
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: rgb(22, 62, 101);
+            color: white;
+        }
+        .upload-section {
+            margin-bottom: 20px;
+            padding: 20px;
+            border: 2px dashed rgb(42, 43, 121);
+            border-radius: 5px;
+        }
+        .filter-section {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .search-group {
+            flex: 1;
+            min-width: 200px;
+        }
+        .search-group label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        select, input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #e0cc7b;
+            border-radius: 4px;
+        }
+        .button-group {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+        }
+        .search-button {
+            background-color: #1c5891;
+            color: rgb(239, 239, 249);
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .search-button:hover {
+            background-color: #3b3f9e;
+        }
+        .clear-button {
+            background-color: #f44336;
+            color: rgb(239, 239, 249);
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .clear-button:hover {
+            background-color: #da190b;
+        }
+        .no-results {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+    </style>
+
+
+    <div class="container">
+        <div class="upload-section">
+            <h2>1 April -31 Oct Sales</h2>
+            <input type="file" id="fileUpload" accept=".xlsx, .xls">
+        </div>
+
+        <div class="filter-section">
+            <div class="search-group">
+                <label for="agmSearch">Search AGM/DGM:</label>
+                <input type="text" id="agmSearch" placeholder="Search AGM/DGM...">
+            </div>
+            <div class="search-group">
+                <label for="codeSearch">Search Item Code:</label>
+                <input type="text" id="codeSearch" placeholder="Search Item Code...">
+            </div>
+            <div class="search-group">
+                <label for="modelSearch">Search Item Model:</label>
+                <input type="text" id="modelSearch" placeholder="Search Item Model...">
+            </div>
+        </div>
+
+        <div class="button-group">
+            <button id="searchButton" class="search-button">Search</button>
+            <button id="clearButton" class="clear-button">Clear Filters</button>
+        </div>
+
+        <table id="dataTable">
+            <thead>
+                <tr>
+                    <th>AGM/DGM</th>
+                    <th>Item Code</th>
+                    <th>Item Model</th>
+                    <th>Quantity</th>
+                </tr>
+            </thead>
+            <tbody>
+                    <tr>
+                        <td colspan="4" class="no-results">No matching results found</td>
+                    </tr>
+                </tbody>
+        </table>
+    </div>
+
+    <script>
+        let rawData = [];
+
+        document.getElementById('fileUpload').addEventListener('change', handleFileUpload);
+        document.getElementById('searchButton').addEventListener('click', displayFilteredData);
+        document.getElementById('clearButton').addEventListener('click', clearFilters);
+
+        function handleFileUpload(e) {
+            const file = e.target.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function(event) {
+                const data = new Uint8Array(event.target.result);
+                const workbook = XLSX.read(data, { type: 'array' });
+                const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+                rawData = XLSX.utils.sheet_to_json(firstSheet);
+
+                displayFilteredData(); // Display all data initially
+            };
+
+            reader.readAsArrayBuffer(file);
+        }
+
+        function clearFilters() {
+            document.getElementById('agmSearch').value = '';
+            document.getElementById('codeSearch').value = '';
+            document.getElementById('modelSearch').value = '';
+            displayFilteredData();
+        }
+
+        function safeString(value) {
+            return (value || '').toString();
+        }
+
+        function displayFilteredData() {
+            const agmSearchTerm = document.getElementById('agmSearch').value.toLowerCase().trim();
+            const codeSearchTerm = document.getElementById('codeSearch').value.toLowerCase().trim();
+            const modelSearchTerm = document.getElementById('modelSearch').value.toLowerCase().trim();
+
+            let filteredData = rawData;
+
+            if (agmSearchTerm) {
+                filteredData = filteredData.filter(row =>
+                    safeString(row['AGM/DGM']).toLowerCase().includes(agmSearchTerm)
+                );
+            }
+            if (codeSearchTerm) {
+                filteredData = filteredData.filter(row =>
+                    safeString(row['ITEM CODE']).toLowerCase().includes(codeSearchTerm)
+                );
+            }
+            if (modelSearchTerm) {
+                filteredData = filteredData.filter(row =>
+                    safeString(row['ITEM MODEL']).toLowerCase().includes(modelSearchTerm)
+                );
+            }
+
+            const groupedData = filteredData.reduce((acc, row) => {
+                const key = `${safeString(row['AGM/DGM'])}-${safeString(row['ITEM CODE'])}-${safeString(row['ITEM MODEL'])}`;
+                if (!acc[key]) {
+                    acc[key] = {
+                        agm: row['AGM/DGM'] || '',
+                        itemCode: row['ITEM CODE'] || '',
+                        itemModel: row['ITEM MODEL'] || '',
+                        quantity: 0
+                    };
+                }
+                acc[key].quantity += Number(row['QUANTITY'] || 0);
+                return acc;
+            }, {});
+
+            const summarizedData = Object.values(groupedData).sort((a, b) => {
+                const agmCompare = safeString(a.agm).localeCompare(safeString(b.agm));
+                if (agmCompare !== 0) return agmCompare;
+                const codeCompare = safeString(a.itemCode).localeCompare(safeString(b.itemCode));
+                if (codeCompare !== 0) return codeCompare;
+                return safeString(a.itemModel).localeCompare(safeString(b.itemModel));
+            });
+
+            const tbody = document.querySelector('#dataTable tbody');
+            tbody.innerHTML = '';
+
+            if (summarizedData.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="4" class="no-results">No matching results found</td>
+                    </tr>
+                `;
+                return;
+            }
+
+            summarizedData.forEach(row => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${row.agm}</td>
+                    <td>${row.itemCode}</td>
+                    <td>${row.itemModel}</td>
+                    <td>${row.quantity}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }    
+    </script>
+
+</body></html>

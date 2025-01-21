@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Management System</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/inter/3.19.3/inter.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --secondary: #64748b;
+            --background: #0f172a;
+            --surface: #1e293b;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --border: #334155;
+            --error: #ef4444;
+            --success: #22c55e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: var(--background);
+            color: var(--text-primary);
+        }
+
+        /* Header Styles */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: rgba(30, 41, 59, 0.98);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            padding: 0 2rem;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .brand-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+        }
+
+        .brand-name {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 1rem;
+        }
+
+        /* Main Content */
+        .main-container {
+            margin-top: 70px;
+            padding: 2rem;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Card Grid */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .card {
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 1rem;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-description {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            line-height: 1.5;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Buttons */
+        .button {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+            font-size: 0.875rem;
+        }
+
+        .button-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .button-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .button-secondary {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+        }
+
+        .button-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Login Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 2rem;
+            width: 90%;
+            max-width: 400px;
+            border: 1px solid var(--border);
+        }
+
+        .modal-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: rgba(15, 23, 42, 0.6);
+            color: var(--text-primary);
+            font-size: 0.875rem;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .error-text {
+            color: var(--error);
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            text-align: center;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header {
+                padding: 0 1rem;
+            }
+
+            .main-container {
+                padding: 1rem;
+            }
+
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal {
+                margin: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="brand">
+                <img src="https://www.americanexpress.lk/images/specialOffers/homecare/SINHAGIRI.jpg" alt="Logo" class="brand-logo">
+                <h1 class="brand-name">RETAIL SUPERVISION</h1>
+            </div>
+            <nav class="nav-menu">
+                <button class="button button-secondary" onclick="showDashboard()">Dashboard</button>
+                <button class="button button-secondary" onclick="logout()">Logout</button>
+            </nav>
+        </div>
+        
+    </header>
+
+    <!-- Login Modal -->
+    <div class="modal-overlay" id="loginModal">
+        <div class="modal">
+            <h2 class="modal-title">Welcome Back</h2>
+            <form onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label class="form-label" for="username">Username</label>
+                    <input class="form-input" type="text" id="username" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="password">Password</label>
+                    <input class="form-input" type="password" id="password" required>
+                </div>
+                <button type="submit" class="button button-primary" style="width: 100%">Sign In</button>
+                <div id="loginError" class="error-text"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-container" id="mainContent" style="display: none;">
+        <div class="card-grid">
+            <!-- Stock Allocation Card -->
+            <div class="card">
+                <img src="https://cdn-icons-png.flaticon.com/512/9639/9639022.png" alt="Stock" class="card-icon">
+                <h3 class="card-title">Stock Allocation</h3>
+                <p class="card-description">
+                    Manage and track stock allocation across different departments. Export data and monitor sales performance.
+                </p>
+                <div style="display: flex; gap: 1rem;">
+                    <button class="button button-primary" onclick="window.location.href='file:///C:/Users/charukad/OneDrive%20-%20Singhagiri%20PVT%20LTD/Desktop/host%20system/Allocation.html'">AGM</button>
+                    <button class="button button-primary" onclick="window.location.href='file:///C:/Users/charukad/OneDrive%20-%20Singhagiri%20PVT%20LTD/Desktop/Singhagiri%20Retail%20System/Allocation%20RM.html'">RM</button>
+                </div>
+            </div>
+
+            <!-- Performance Analysis Card -->
+            <div class="card">
+                <img src="https://cdn-icons-png.flaticon.com/512/4047/4047148.png" alt="Analysis" class="card-icon">
+                <h3 class="card-title">Performance Analysis</h3>
+                <p class="card-description">
+                    Track and analyze sales performance metrics, generate reports, and identify trends.
+                </p>
+                <button class="button button-primary" onclick="navigateToSystem('analysis')">View Analysis</button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // User roles and permissions
+        const users = {
+            'admin': { password: '1234', role: 'admin' },
+            'asanka': { password: 'asanka123', role: 'asanka' },
+            'rm2': { password: 'rm002', role: 'rm' },
+            'rm3': { password: 'rm003', role: 'rm' },
+            'dgm': { password: 'dgm123', role: 'dgm' }
+        };
+
+        // System URLs
+        const systemUrls = {
+            agm: 'path/to/agm/system',
+            rm: 'path/to/rm/system',
+            analysis: 'path/to/analysis/system'
+        };
+
+        function handleLogin(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorElement = document.getElementById('loginError');
+
+            if (users[username] && users[username].password === password) {
+                document.getElementById('loginModal').style.display = 'none';
+                document.getElementById('mainContent').style.display = 'block';
+                sessionStorage.setItem('userRole', users[username].role);
+                applyRolePermissions(users[username].role);
+                errorElement.textContent = '';
+            } else {
+                errorElement.textContent = 'Invalid credentials. Please try again.';
+            }
+        }
+
+        function applyRolePermissions(role) {
+            const buttons = document.querySelectorAll('.button-primary');
+            
+            switch(role) {
+                case 'admin':
+                    buttons.forEach(btn => btn.style.display = 'block');
+                    break;
+                case 'rm':
+                    buttons.forEach(btn => {
+                        if (btn.textContent === 'RM') btn.style.display = 'block';
+                        else btn.style.display = 'none';
+                    });
+                    break;
+                case 'dgm':
+                    buttons.forEach(btn => btn.style.display = 'block');
+                    break;
+            }
+        }
+
+        function navigateToSystem(system) {
+            window.location.href = systemUrls[system];
+        }
+
+        function showDashboard() {
+            document.getElementById('mainContent').style.display = 'block';
+        }
+
+        function logout() {
+            sessionStorage.removeItem('userRole');
+            document.getElementById('mainContent').style.display = 'none';
+            document.getElementById('loginModal').style.display = 'flex';
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            const userRole = sessionStorage.getItem('userRole');
+            if (userRole) {
+                document.getElementById('loginModal').style.display = 'none';
+                document.getElementById('mainContent').style.display = 'block';
+                applyRolePermissions(userRole);
+            }
+        });
+    </script>
+</body>
+</html>
